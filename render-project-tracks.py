@@ -1,5 +1,5 @@
 # use python3!!
-# python3 -m tabnanny -v render-project-tracks.py
+# python3 render-project-tracks.py -p ~/_create/Reaper/Projects/ColorFlagsAudio/Magee_Anthems
 
 import sys
 import os
@@ -31,12 +31,12 @@ def render(projectsDir):
     macPATH = r"/Users/samenglander/_dev/RenderReaperProjects/Andorra/AndorraQuantizeFinal.rpp"
 
     if projectsDir:
-        projectsDir = projectsDir       
+        projectsDir = projectsDir
     else:
         projectsDir = os.path.dirname(os.path.realpath(__file__))
 
     target = projectsDir + "/*/*.RPP"
-    
+
     for f in glob.iglob(target):
     	reaperProjectsArray.append(f)
 
@@ -49,16 +49,25 @@ def render(projectsDir):
     #cmd = [REAPER, '-h']
     # cmd = [REAPER, '-renderproject', target]
     #cmd = [REAPER, '-cfgfile', 'REAPER.ini', '-renderproject', winPATH]
-    
+
     #output = subprocess.check_output(cmd)
     # output = subprocess.call(cmd)
-    
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('input', nargs='?', action='store')
-    args = parser.parse_args()
-    return (args.input)
-    
+
+def check_arg(args=None):
+
+    parser = argparse.ArgumentParser(description='download video')
+    parser.add_argument('-p', '--proj',
+                        help='projects folder',
+                        required='True')
+
+    results = parser.parse_args(args)
+    print(results.proj)
+    return (results.proj)
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument('input', nargs='?', action='store')
+    # args = parser.parse_args()
+    # return (args.input)
+
 if __name__ == '__main__':
-    p = main()
+    p = check_arg(sys.argv[1:])
     render(p)
