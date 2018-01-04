@@ -41,17 +41,14 @@ def render(projectsDir):
     	reaperProjectsArray.append(f)
 
     for i in range(len(reaperProjectsArray)):
-    	cmd = [REAPER, '-renderproject', reaperProjectsArray[i]]
-    	output = subprocess.check_output(cmd)
+        filename = os.path.splitext(os.path.basename(reaperProjectsArray[i]))
+        version = filename[0].split("_")[1]
+        if "use" in version:
+            print(filename)
+            cmd = [REAPER, '-renderproject', reaperProjectsArray[i]]
+            output = subprocess.check_output(cmd)
 
     # print(len(reaperProjectsArray))
-
-    #cmd = [REAPER, '-h']
-    # cmd = [REAPER, '-renderproject', target]
-    #cmd = [REAPER, '-cfgfile', 'REAPER.ini', '-renderproject', winPATH]
-
-    #output = subprocess.check_output(cmd)
-    # output = subprocess.call(cmd)
 
 def check_arg(args=None):
 
